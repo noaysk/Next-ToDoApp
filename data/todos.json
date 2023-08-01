@@ -2,31 +2,23 @@
   "tasks": [
     {
       "id": "1",
-      "text": "study e"
+      "text": "study eng",
+      "isDone": true
     },
     {
       "id": "2",
-      "text": "shopping"
+      "text": "shopping",
+      "isDone": true
     },
     {
       "id": "3",
-      "text": "party"
+      "text": "party",
+      "isDone": true
     },
     {
-      "id": "4",
-      "text": "hello"
-    },
-    {
-      "id": "5",
-      "text": "world"
-    },
-    {
-      "id": "2daf5abd-ae2c-4e6e-921b-5fc05c9f208d",
-      "text": "learn english"
-    },
-    {
-      "id": "1dfec487-85c9-4144-9ba4-fcfe536bdc06",
-      "text": "finish"
+      "id": "8b73343b-6a27-4713-881f-e3df43da4852",
+      "text": "aaa",
+      "isDone": false
     }
   ]
 }

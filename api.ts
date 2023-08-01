@@ -9,6 +9,12 @@ export const getAllTodos = async (): Promise<ITask[]> => {
   return todos;
 };
 
+// export const getTodo = async (id: string): Promise<ITask> => {
+//   const res = await fetch(`${baseUrl}/tasks/${id}`, { cache: "no-store" });
+//   const todo = await res.json();
+//   return todo;
+// };
+
 export const addTodo = async (todo: ITask): Promise<ITask> => {
   const res = await fetch(`${baseUrl}/tasks`, {
     method: "Post",

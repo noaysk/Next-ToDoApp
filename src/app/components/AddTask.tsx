@@ -2,19 +2,22 @@
 import { FormEventHandler, useState } from "react";
 import { addTodo } from "../../../api";
 import { useRouter } from "next/navigation";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 const AddTask = () => {
   const router = useRouter();
   const [newTaskValue, setNewTaskValue] = useState<string>("");
+  const [checked, setChecked] = useState<boolean>(false);
 
   const handleSubmitNewTodo: FormEventHandler<HTMLElement> = async (e) => {
     e.preventDefault();
     await addTodo({
       id: uuidv4(), // ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
-      text: newTaskValue
-    })
+      text: newTaskValue,
+      isDone: checked,
+    });
     setNewTaskValue("");
+    setChecked(false);
     router.refresh();
   };
   return (

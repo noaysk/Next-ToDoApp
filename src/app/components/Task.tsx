@@ -13,36 +13,57 @@ interface TaskProps {
 }
 
 const Task: React.FC<TaskProps> = ({ task }) => {
-    const router = useRouter();
+  const router = useRouter();
   const [openModalEdit, setOpenModalEdit] = useState<boolean>(false);
   const [openModalDeleted, setOpenModalDeleted] = useState<boolean>(false);
   const [taskToEdit, setTaskToEdit] = useState<string>(task.text);
+  const [checked, setChecked] = useState<boolean>(task.isDone);
+
+  const handleChange = (e: any) => {
+    console.log(e.target.id);
+    editTodo({
+      id: task.id,
+      text: task.text,
+      isDone: e.target.checked,
+    });
+    setChecked(() => e.target.checked);
+  };
 
   const handleSubmitEditTodo: FormEventHandler<HTMLElement> = async (e) => {
     e.preventDefault();
     await editTodo({
       id: task.id, // ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
-      text: taskToEdit
-    })
+      text: taskToEdit,
+      isDone: checked,
+    });
     setOpenModalEdit(false);
     router.refresh();
   };
 
-  const handleDeleteTask =async(id: string)=>{
+  const handleDeleteTask = async (id: string) => {
     await deleteTodo(id);
     setOpenModalDeleted(false);
     router.refresh();
+  };
 
-  }
   return (
     <tr key={task.id}>
       <th>
-        <input type="checkbox" className="checkbox checkbox-primary" />
+        <input
+          id={task.id}
+          type="checkbox"
+          checked={checked}
+          onChange={handleChange}
+          className="checkbox checkbox-primary"
+        />
       </th>
       <td className="w-full">{task.text}</td>
       <td className="flex gap-5">
-        <FaPen onClick={() => setOpenModalEdit(true)} cursor="pointer" className="text-gray-500" />
-
+        <FaPen
+          onClick={() => setOpenModalEdit(true)}
+          cursor="pointer"
+          className="text-gray-500"
+        />
         <Modal modalOpen={openModalEdit} setModalOpen={setOpenModalEdit}>
           <form onSubmit={handleSubmitEditTodo}>
             <h3 className="font-bold text-lg">Edit task</h3>
@@ -58,16 +79,21 @@ const Task: React.FC<TaskProps> = ({ task }) => {
             </button>
           </form>
         </Modal>
-
-        <FaTrash onClick={() => setOpenModalDeleted(true)} cursor="pointer" className="text-gray-500" />
-
+        <FaTrash
+          onClick={() => setOpenModalDeleted(true)}
+          cursor="pointer"
+          className="text-gray-500"
+        />
         <Modal modalOpen={openModalDeleted} setModalOpen={setOpenModalDeleted}>
-         <h3 className="text-lg">Are you sure, you want to delete this task?</h3>
-         <div className="modal-action">
-            <button onClick={() => handleDeleteTask(task.id)} className="btn">Yes</button>
-         </div>
+          <h3 className="text-lg">
+            Are you sure, you want to delete this task?
+          </h3>
+          <div className="modal-action">
+            <button onClick={() => handleDeleteTask(task.id)} className="btn">
+              Yes
+            </button>
+          </div>
         </Modal>
-
       </td>
     </tr>
   );
