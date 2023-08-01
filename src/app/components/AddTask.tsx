@@ -10,6 +10,9 @@ const AddTask = () => {
   const [checked, setChecked] = useState<boolean>(false);
 
   const handleSubmitNewTodo: FormEventHandler<HTMLElement> = async (e) => {
+    if (newTaskValue==''){
+      return;
+    }
     e.preventDefault();
     await addTodo({
       id: uuidv4(), // ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'

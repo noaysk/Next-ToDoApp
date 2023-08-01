@@ -19,8 +19,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
   const [taskToEdit, setTaskToEdit] = useState<string>(task.text);
   const [checked, setChecked] = useState<boolean>(task.isDone);
 
-  const handleChange = (e: any) => {
-    console.log(e.target.id);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     editTodo({
       id: task.id,
       text: task.text,
