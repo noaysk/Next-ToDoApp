@@ -7,6 +7,8 @@ import { FormEventHandler, useState } from "react";
 import Modal from "./Modal";
 import { useRouter } from "next/navigation";
 import { deleteTodo, editTodo } from "../../../api";
+import moment from "moment";
+import { ok } from "assert";
 
 interface TaskProps {
   task: ITask;
@@ -17,13 +19,16 @@ const Task: React.FC<TaskProps> = ({ task }) => {
   const [openModalEdit, setOpenModalEdit] = useState<boolean>(false);
   const [openModalDeleted, setOpenModalDeleted] = useState<boolean>(false);
   const [taskToEdit, setTaskToEdit] = useState<string>(task.text);
+  const [taskToEditDate, setTaskToEditDate] = useState<string>(task.date);  
   const [checked, setChecked] = useState<boolean>(task.isDone);
+  const [newTaskDate, setNewTaskDate] = useState(moment().format('YYYY-MM-DD'));
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     editTodo({
       id: task.id,
       text: task.text,
       isDone: e.target.checked,
+      date: task.date
     });
     setChecked(() => e.target.checked);
   };
@@ -34,6 +39,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
       id: task.id, // ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
       text: taskToEdit,
       isDone: checked,
+      date: taskToEditDate
     });
     setOpenModalEdit(false);
     router.refresh();
@@ -46,7 +52,7 @@ const Task: React.FC<TaskProps> = ({ task }) => {
   };
 
   return (
-    <tr key={task.id}>
+    <tr key={task.id} className={taskToEditDate < newTaskDate && checked == false ? 'bg-slate-400' : 'bg-white'}>
       <th>
         <input
           id={task.id}
@@ -56,8 +62,9 @@ const Task: React.FC<TaskProps> = ({ task }) => {
           className="checkbox checkbox-primary"
         />
       </th>
-      <td className="w-full">{task.text}</td>
-      <td className="flex gap-5">
+      <td id="ok" className="">{task.text}</td>
+      <td>{task.date}</td>
+      <td className="flex gap-7 ">
         <FaPen
           onClick={() => setOpenModalEdit(true)}
           cursor="pointer"
@@ -73,6 +80,12 @@ const Task: React.FC<TaskProps> = ({ task }) => {
               placeholder="Type here"
               className="input input-bordered w-full"
             ></input>
+            <input 
+            value={taskToEditDate}
+            onChange={(e) => setTaskToEditDate(e.target.value)}
+            type="date"
+            className="input input-bordered w-full"
+            />
             <button type="submit" className="btn">
               Submit
             </button>

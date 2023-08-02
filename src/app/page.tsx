@@ -7,7 +7,7 @@ export default async function Home() {
   console.log(tasks);
   return (
     <main>
-      <div className="text-center bg-violet-900 py-5 ">
+      <div className="text-center bg-violet-900 py-5 mb-5">
         <h1 className="text-white font-bold text-2xl">Todo APP</h1>
       </div>
       <AddTask />
