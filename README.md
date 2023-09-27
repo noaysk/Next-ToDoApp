@@ -2,7 +2,16 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, run the json server:
+
+npm run json-server
+
+Open [http://localhost:3001/tasks](http://localhost:3001/tasks) with your browser to see the object.
+References: https://github.com/typicode/json-server
+
+
+Next,
+run the development server:
 
 ```bash
 npm run dev
