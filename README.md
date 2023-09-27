@@ -4,7 +4,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 First, run the json server:
 
+```bash
 npm run json-server
+```
 
 Open [http://localhost:3001/tasks](http://localhost:3001/tasks) with your browser to see the object.
 References: https://github.com/typicode/json-server
